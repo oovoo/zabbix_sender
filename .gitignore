@@ -1,0 +1,17 @@
+ebin/
+.idea/
+deps/
+zabbix_sender.plt
+rel/cce*
+.eunit/
+log
+logs
+*.iml
+ct_test/test.config
+ct_test/*.beam
+erl_crash.dump
+c_src/*.o
+dialyzer_warnings
+*.pro.user
+_rel/
+cce.iml
