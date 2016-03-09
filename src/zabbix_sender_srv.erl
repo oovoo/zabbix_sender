@@ -231,13 +231,14 @@ is_module_exists(Module) ->
   end.
 
 prepare_item({Key, Value}, HostName) ->
-  [{<<"key">>, to_binary(Key)}, {<<"value">>, value_fixtype(Value)}, {<<"host">>, to_binary(HostName)}].
+  [{<<"key">>, cast_type(Key)}, {<<"value">>, value_fixtype(Value)}, {<<"host">>, cast_type(HostName)}].
 
 
 value_fixtype(V) when is_list(V) -> list_to_binary(V);
 value_fixtype(V) -> V.
 
-to_binary(V) when is_binary(V)->V;
-to_binary(V) when is_integer(V)-> integer_to_binary(V);
-to_binary(V) when is_list(V)-> list_to_binary(V);
-to_binary(V) when is_float(V)-> float_to_binary(V).
+cast_type(V) when is_atom(V)-> V;
+cast_type(V) when is_binary(V)->V;
+cast_type(V) when is_integer(V)-> integer_to_binary(V);
+cast_type(V) when is_list(V)-> list_to_binary(V);
+cast_type(V) when is_float(V)-> float_to_binary(V).
