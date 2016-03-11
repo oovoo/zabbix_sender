@@ -19,7 +19,7 @@ stop() ->
   K :: binary() | string(),
   V :: integer() | binary() | float() | string().
 send_message(Packet)->
-  zabbix_sender_srv:send_msg(Packet).
+  zabbix_sender_srv:send_packet(Packet).
 
 -spec send_message(K, V) -> ok when
   K :: binary() | string(),
@@ -39,4 +39,4 @@ async_send_message(K, V)->
   K :: binary() | string(),
   V :: integer() | binary() | float() | string().
 async_send_message(Packet)->
-  zabbix_sender_srv:send_msg(Packet).
+  zabbix_sender_srv:send_packet(Packet).
