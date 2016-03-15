@@ -125,7 +125,7 @@ init([]) ->
     init([?MODULE, HostName, ZabbixPort, ZabbixHost]);
 
 
-init([AliasName, HostName, ZabbixPort, ZabbixHost]) ->
+init([AliasName, HostName, ZabbixHost, ZabbixPort]) ->
     zabbix_sender_register:add(AliasName),
     St = #st{host = ZabbixHost, port = ZabbixPort, hostname = HostName, alias_name = AliasName},
     lager:debug("zabbix_sender_srv inited with st: ~p~n", [St]),
