@@ -47,13 +47,13 @@
 
 
 -ignore_xref([
-  {start_link, 0},
-  {start_link, 1},
-  {handle_call, 3},
-  {handle_cast, 2},
-  {handle_info, 2},
-  {terminate,2},
-  {code_change,3}
+    {start_link, 0},
+    {start_link, 1},
+    {handle_call, 3},
+    {handle_cast, 2},
+    {handle_info, 2},
+    {terminate,2},
+    {code_change,3}
 ]).
 
 
@@ -122,7 +122,7 @@ init([]) ->
     {ok, ZabbixHost} = application:get_env(zabbix_sender, zabbix_host),
     {ok, ZabbixPort} = application:get_env(zabbix_sender, zabbix_port),
     {ok, HostName} = application:get_env(zabbix_sender, hostname),
-    init([?MODULE, HostName, ZabbixPort, ZabbixHost]);
+    init([?MODULE, HostName, ZabbixHost, ZabbixPort]);
 
 
 init([AliasName, HostName, ZabbixHost, ZabbixPort]) ->
