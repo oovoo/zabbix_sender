@@ -109,7 +109,7 @@ start_link(Args) ->
     gen_server:start_link(?MODULE, Args, []).
 
 
--spec start(tcp_host(), tcp_port(), string()) -> {ok, pid()}.
+-spec start(string(), tcp_host(), tcp_port()) -> {ok, pid()}.
 start(HostName, ZabbixHost, ZabbixPort) ->
     zabbix_sender_sup:start_sender([?MODULE, HostName, ZabbixHost, ZabbixPort]).
 

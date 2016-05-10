@@ -1,15 +1,83 @@
 zabbix_sender
 =============
 
-Simple native Zabbix_sender for Erlang applications
+Simple native Zabbix_sender for Erlang applications    
 
-1. For starting sender with your application you should include it in your app.src file.
-2. In config file zabbix_sender.config you need insert list of params:
-  zabbix_host - IP adress of Zabbix server host;
-  zabbix_port - listening port for trappers in Zabbix server (default value 10050);
-  sender_host - name of your application host in Zabbix server web interface. 
-	send_file_path - absolute path for file with trappers (optional parameter, need only for using function     send_from_file/1, send_from_file/0.
-3. In Zabbix server web interface add trappers (additional info https://www.zabbix.com/documentation/2.0/manual/config/items/itemtypes/trapper)
-4. Use functions send_item/1, send_list_items/1 for sending pairs {key, value} to Zabbix from default hostname in zabbix_sender.config.
-5. Use functions send_item/2, send_list_items/2 for sending pairs {key, value} to Zabbix from custom hostname different with zabbix_sender.config.
-6. Also if you want store pairs in file and after them send all file with trappers to Zabbix use functions  send_from_file/0 for default file from zabbix_sender.config or send_from_file/1 for custom filename.
+[![Build Status](https://travis-ci.org/stalkermn/gcm_xmpp.svg)](https://travis-ci.org/stalkermn/gcm_xmpp)
+
+Getting Started
+=======
+### Building and compiling
+#### rebar.config
+```erl
+{deps, [
+    .....
+    {zabbix_sender, ".*", {git, "https://github.com/stalkermn/zabbix_sender_.git", "master"}}
+]}.
+```
+#### erlang.mk (Makefile)
+This package is already in erlang.mk packages index. You can use it without specifying any references to original repositories
+```sh
+DEPS = zabbix_sender
+```
+
+##### Notice
+
+Don't forget to include zabbix_sender name to your `*.app.src` OR `reltool.config` OR `relx.config` for properly including this lib to your release 
+
+
+### Starting zabbix_sender
+For starting using zabbix_sender      
+```erl
+application:start(lager).
+application:start(jiffy). % (Optional) if you want use jiffy instead of jsx (by default)
+application:start(inets).
+application:start(zabbix_sender)
+```
+
+OR     
+
+```erl
+zabbix_sender:start()
+```
+
+OR if you have included properly to release, your zabbix_sender will be started automatically. 
+
+### Usage    
+Your main module for any manipulation is a `zabbix_sender_srv`
+
+Before starting we should specify properly configuration of the zabbix_server:
+```erl
+zabbix_sender_srv:start(Hostname :: string(), tcp_host(), tcp_port()) -> {ok, pid()}
+```
+OR if you want to use multiply hosts, try to start your sender:    
+```erl
+zabbix_sender_srv:start(SenderName :: any(),  Hostname :: string(), tcp_host(), tcp_port()) -> {ok, pid()}.
+```
+Where `SenderName` is a name of this sender (will be used in future for sending data to zabbix)
+
+Delivering metrics to zabbix:
+For `zabbix_sender_srv:start/3`     
+```erl
+zabbix_sender_srv:send_packet(zabbix_sender_srv, [{key, value}]).
+zabbix_sender_srv:async_send_packet(zabbix_sender_srv, [{key, value}]).
+zabbix_sender_srv:send_msg(zabbix_sender_srv, key, value).
+zabbix_sender_srv:async__send_msg(zabbix_sender_srv, key, value).
+```
+
+For `zabbix_sender_srv:start/4`     
+
+```erl
+zabbix_sender_srv:send_packet(SenderName :: any(), [{key, value}]).
+zabbix_sender_srv:async_send_packet(SenderName :: any(), [{key, value}]).
+zabbix_sender_srv:send_msg(SenderName :: any(), key, value).
+zabbix_sender_srv:async__send_msg(SenderName :: any(), key, value).
+```
+
+## Contributing
+
+All contributions are welcome: ideas, patches, documentation, bug reports, complaints, and even something you drew up on a napkin.
+
+License
+----
+MIT
