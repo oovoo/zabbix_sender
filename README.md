@@ -3,7 +3,7 @@ zabbix_sender
 
 Simple native Zabbix_sender for Erlang applications    
 
-[![Build Status](https://travis-ci.org/stalkermn/gcm_xmpp.svg)](https://travis-ci.org/stalkermn/gcm_xmpp)
+[![Build Status](https://travis-ci.org/stalkermn/zabbix_sender.svg?branch=master)](https://travis-ci.org/stalkermn/zabbix_sender.svg?branch=master)
 
 Getting Started
 =======
