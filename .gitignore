@@ -15,3 +15,4 @@ dialyzer_warnings
 *.pro.user
 _rel/
 cce.iml
+.rebar/
